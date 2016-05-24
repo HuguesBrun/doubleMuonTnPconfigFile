@@ -92,7 +92,7 @@ Template = cms.EDAnalyzer("TagProbeFitTreeAnalyzer",
         )
     ),
 
-    binnedFit = cms.bool(False),
+    binnedFit = cms.bool(True),
     binsForFit = cms.uint32(40),
     saveDistributionsPlot = cms.bool(False),
 
@@ -103,7 +103,7 @@ Template = cms.EDAnalyzer("TagProbeFitTreeAnalyzer",
 
 
 PT_ETA_BINS = cms.PSet(
-                        pt     = cms.vdouble( 0, 10, 15,20,25,30, 40, 50, 60, 90, 140, 300, 500  ),
+                        pt     = cms.vdouble( 0, 10, 15, 18, 20, 22, 25, 30, 40, 50, 60, 80, 120  ),
                         abseta = cms.vdouble(0.0, 0.9, 1.2, 2.1, 2.4),
                         Tight2012 = cms.vstring("pass"),
                         tag_IsoMu20 = cms.vstring("pass"),
@@ -154,14 +154,7 @@ if "_weight" in scenario:
 if scenario=="data_all":
     process.TnP_MuonID.InputFileNames = cms.vstring(
                                                     # put here the trees corresponding to data
-                                                    # "root://eoscms//eos/cms/store/group/phys_muon/hbrun/muonPOGtnpTrees/ExpressReco2016/mergedTrees/TnPtreeDataExpressRun272818_2.root"
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273013_1.root",
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273013_2.root",
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273017_1.root",
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273017_2.root",
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273017_3.root",
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273017_4.root",
-                                                    "file:/tmp/hbrun/TnPtreeDataExpressRun273017_5.root"
+                                                    "file:/tmp/hbrun/TnPTree_80X_Run2016B_v2_DCSOnly_RunList.root"
                                                     )
 
 if "mc" in scenario:
@@ -170,10 +163,10 @@ if "mc" in scenario:
                                                     "root://eoscms//eos/cms/store/group/phys_muon/TagAndProbe/TnP_trees_aod747_DY.root"
                                                     )
 
-IDS = [ "DoubleIsoMu17Mu8_Mu17leg","DoubleIsoMu17Mu8_Mu8leg","DoubleIsoMu17TkMu8_Mu17leg","DoubleIsoMu17TkMu8_TkMu8leg"]
+IDS = [ "DoubleIsoMu17Mu8_Mu17leg","DoubleIsoMu17Mu8_Mu8leg","DoubleIsoMu17TkMu8_Mu17leg","DoubleIsoMu17TkMu8_TkMu8leg","Mu17_IsoTrkVVL"]
 #IDS = [args[1]] #here the id is taken from the arguments provided to cmsRun
 #ALLBINS = [("pt_eta",PT_ETA_BINS),("phi",PHI_BINS),("eta",ETA_BINS),("vtx",VTX_BINS)]
-ALLBINS = [("phi",PHI_BINS),("eta",ETA_BINS)]
+ALLBINS = [("phi",PHI_BINS),("eta",ETA_BINS), ("pt_eta",PT_ETA_BINS)]
 
 if len(args) > 1 and args[1] not in IDS: IDS += [ args[1] ]
 for ID in IDS:
